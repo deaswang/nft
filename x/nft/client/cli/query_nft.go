@@ -52,10 +52,10 @@ func CmdShowNft() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argIndex := args[0]
+			argCollectionId := args[0]
 
 			params := &types.QueryGetNftRequest{
-				Index: argIndex,
+				CollectionId: argCollectionId,
 			}
 
 			res, err := queryClient.Nft(context.Background(), params)

@@ -31,21 +31,21 @@ func TestNftQuerySingle(t *testing.T) {
 		{
 			desc: "First",
 			request: &types.QueryGetNftRequest{
-				Index: msgs[0].CollectionId,
+				CollectionId: msgs[0].CollectionId,
 			},
 			response: &types.QueryGetNftResponse{Nft: msgs[0]},
 		},
 		{
 			desc: "Second",
 			request: &types.QueryGetNftRequest{
-				Index: msgs[1].CollectionId,
+				CollectionId: msgs[1].CollectionId,
 			},
 			response: &types.QueryGetNftResponse{Nft: msgs[1]},
 		},
 		{
 			desc: "KeyNotFound",
 			request: &types.QueryGetNftRequest{
-				Index: strconv.Itoa(100000),
+				CollectionId: strconv.Itoa(100000),
 			},
 			err: status.Error(codes.InvalidArgument, "not found"),
 		},

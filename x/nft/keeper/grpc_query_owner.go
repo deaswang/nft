@@ -20,7 +20,7 @@ func (k Keeper) OwnerAll(c context.Context, req *types.QueryAllOwnerRequest) (*t
 	ctx := sdk.UnwrapSDKContext(c)
 
 	store := ctx.KVStore(k.storeKey)
-	ownerStore := prefix.NewStore(store, types.KeyPrefix(types.OwnerKeyPrefix))
+	ownerStore := prefix.NewStore(store, types.KeyPrefix(types.OwnerKeyPrefix+req.Index+"/"))
 
 	pageRes, err := query.Paginate(ownerStore, req.Pagination, func(key []byte, value []byte) error {
 		var owner types.Owner
@@ -48,6 +48,7 @@ func (k Keeper) Owner(c context.Context, req *types.QueryGetOwnerRequest) (*type
 	val, found := k.GetOwner(
 		ctx,
 		req.Index,
+		req.CollectionId,
 	)
 	if !found {
 		return nil, status.Error(codes.InvalidArgument, "not found")

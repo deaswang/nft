@@ -31,6 +31,7 @@ func TestOwnerGet(t *testing.T) {
 	for _, item := range items {
 		rst, found := keeper.GetOwner(ctx,
 			item.Index,
+			item.CollectionId,
 		)
 		require.True(t, found)
 		require.Equal(t,
@@ -45,9 +46,11 @@ func TestOwnerRemove(t *testing.T) {
 	for _, item := range items {
 		keeper.RemoveOwner(ctx,
 			item.Index,
+			item.CollectionId,
 		)
 		_, found := keeper.GetOwner(ctx,
 			item.Index,
+			item.CollectionId,
 		)
 		require.False(t, found)
 	}

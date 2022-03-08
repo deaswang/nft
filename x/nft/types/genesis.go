@@ -35,7 +35,7 @@ func (gs GenesisState) Validate() error {
 	nftIndexMap := make(map[string]struct{})
 
 	for _, elem := range gs.NftList {
-		index := string(NftKey(elem.CollectionId))
+		index := string(NftKey(elem.CollectionId, elem.TokenId))
 		if _, ok := nftIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for nft")
 		}
@@ -45,7 +45,7 @@ func (gs GenesisState) Validate() error {
 	ownerIndexMap := make(map[string]struct{})
 
 	for _, elem := range gs.OwnerList {
-		index := string(OwnerKey(elem.Index))
+		index := string(OwnerKey(elem.Index, elem.CollectionId))
 		if _, ok := ownerIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for owner")
 		}

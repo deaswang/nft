@@ -12,6 +12,7 @@ func (k Keeper) SetOwner(ctx sdk.Context, owner types.Owner) {
 	b := k.cdc.MustMarshal(&owner)
 	store.Set(types.OwnerKey(
 		owner.Index,
+		owner.CollectionId,
 	), b)
 }
 
@@ -19,12 +20,13 @@ func (k Keeper) SetOwner(ctx sdk.Context, owner types.Owner) {
 func (k Keeper) GetOwner(
 	ctx sdk.Context,
 	index string,
-
+	collectionId string,
 ) (val types.Owner, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OwnerKeyPrefix))
 
 	b := store.Get(types.OwnerKey(
 		index,
+		collectionId,
 	))
 	if b == nil {
 		return val, false
@@ -38,11 +40,12 @@ func (k Keeper) GetOwner(
 func (k Keeper) RemoveOwner(
 	ctx sdk.Context,
 	index string,
-
+	collectionId string,
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OwnerKeyPrefix))
 	store.Delete(types.OwnerKey(
 		index,
+		collectionId,
 	))
 }
 

@@ -12,6 +12,7 @@ func (k Keeper) SetNft(ctx sdk.Context, nft types.Nft) {
 	b := k.cdc.MustMarshal(&nft)
 	store.Set(types.NftKey(
 		nft.CollectionId,
+		nft.TokenId,
 	), b)
 }
 
@@ -19,12 +20,14 @@ func (k Keeper) SetNft(ctx sdk.Context, nft types.Nft) {
 func (k Keeper) GetNft(
 	ctx sdk.Context,
 	index string,
+	tokenId string,
 
 ) (val types.Nft, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.NftKeyPrefix))
 
 	b := store.Get(types.NftKey(
 		index,
+		tokenId,
 	))
 	if b == nil {
 		return val, false
@@ -38,11 +41,13 @@ func (k Keeper) GetNft(
 func (k Keeper) RemoveNft(
 	ctx sdk.Context,
 	index string,
+	tokenId string,
 
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.NftKeyPrefix))
 	store.Delete(types.NftKey(
 		index,
+		tokenId,
 	))
 }
 

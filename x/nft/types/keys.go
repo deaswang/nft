@@ -17,14 +17,6 @@ const (
 	MemStoreKey = "mem_nft"
 )
 
-var (
-	CollectionPrefix = []byte{0x01}
-	NFTPrefix        = []byte{0x02}
-	OwnerPrefix      = []byte{0x03}
-
-	Delimiter = []byte("/")
-)
-
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }

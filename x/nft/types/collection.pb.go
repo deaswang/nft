@@ -22,7 +22,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// Key: 0x01/<index>/
+// Key: <index>/
 type Collection struct {
 	// use for index, same as contract if import from eth
 	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`

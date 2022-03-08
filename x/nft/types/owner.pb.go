@@ -22,7 +22,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// Key: 0x03/<index>/<collectionId>/
+// Key: <index>/<collectionId>/
 type Owner struct {
 	Index        string   `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
 	CollectionId string   `protobuf:"bytes,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`

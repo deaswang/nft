@@ -20,7 +20,7 @@ func (k Keeper) NftAll(c context.Context, req *types.QueryAllNftRequest) (*types
 	ctx := sdk.UnwrapSDKContext(c)
 
 	store := ctx.KVStore(k.storeKey)
-	nftStore := prefix.NewStore(store, types.KeyPrefix(types.NftKeyPrefix))
+	nftStore := prefix.NewStore(store, types.KeyPrefix(types.NftKeyPrefix+req.CollectionId+"/"))
 
 	pageRes, err := query.Paginate(nftStore, req.Pagination, func(key []byte, value []byte) error {
 		var nft types.Nft
@@ -47,7 +47,8 @@ func (k Keeper) Nft(c context.Context, req *types.QueryGetNftRequest) (*types.Qu
 
 	val, found := k.GetNft(
 		ctx,
-		req.Index,
+		req.CollectionId,
+		req.TokenId,
 	)
 	if !found {
 		return nil, status.Error(codes.InvalidArgument, "not found")
