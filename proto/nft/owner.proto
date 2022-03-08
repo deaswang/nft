@@ -1,0 +1,15 @@
+syntax = "proto3";
+package deaswang.nft.nft;
+
+option go_package = "github.com/deaswang/nft/x/nft/types";
+
+// Key: 0x03/<index>/<collectionId>/
+message Owner {
+  string index = 1; 
+  string collectionId = 2; 
+  uint64 balance = 3; 
+  repeated string approvals = 4; 
+  string data = 5; 
+  
+}
+

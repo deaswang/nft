@@ -1,0 +1,18 @@
+syntax = "proto3";
+package deaswang.nft.nft;
+
+option go_package = "github.com/deaswang/nft/x/nft/types";
+
+
+// Key 0x02/<collectionId>/<tokenId>/
+message Nft {
+  string collectionId = 1; 
+  uint64 tokenId = 2; 
+  string uri = 3; 
+  string uriHash = 4; 
+  string owner = 5; 
+  string approval = 6; 
+  string data = 7; 
+  
+}
+
