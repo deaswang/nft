@@ -1,0 +1,120 @@
+syntax = "proto3";
+package deaswang.nft.nft;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "nft/params.proto";
+import "nft/collection.proto";
+import "nft/nft.proto";
+import "nft/owner.proto";
+// this line is used by starport scaffolding # 1
+
+option go_package = "github.com/deaswang/nft/x/nft/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/deaswang/nft/nft/params";
+  }
+  // Queries a Collection by index.
+	rpc Collection(QueryGetCollectionRequest) returns (QueryGetCollectionResponse) {
+		option (google.api.http).get = "/deaswang/nft/nft/collection/{index}";
+	}
+
+	// Queries a list of Collection items.
+	rpc CollectionAll(QueryAllCollectionRequest) returns (QueryAllCollectionResponse) {
+		option (google.api.http).get = "/deaswang/nft/nft/collection";
+	}
+
+// Queries a Nft by index.
+	rpc Nft(QueryGetNftRequest) returns (QueryGetNftResponse) {
+		option (google.api.http).get = "/deaswang/nft/nft/nft/{collectionId}/{tokenId}";
+	}
+
+	// Queries a list of Nft items.
+	rpc NftAll(QueryAllNftRequest) returns (QueryAllNftResponse) {
+		option (google.api.http).get = "/deaswang/nft/nft/nft/{collectionId}";
+	}
+
+// Queries a Owner by index.
+	rpc Owner(QueryGetOwnerRequest) returns (QueryGetOwnerResponse) {
+		option (google.api.http).get = "/deaswang/nft/nft/owner/{index}/{collectionId}";
+	}
+
+	// Queries a list of Owner items.
+	rpc OwnerAll(QueryAllOwnerRequest) returns (QueryAllOwnerResponse) {
+		option (google.api.http).get = "/deaswang/nft/nft/owner/{index}";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetCollectionRequest {
+	  string index = 1;
+
+}
+
+message QueryGetCollectionResponse {
+	Collection collection = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCollectionRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCollectionResponse {
+	repeated Collection collection = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetNftRequest {
+    string collectionId = 1;
+    string tokenId = 2; 
+}
+
+message QueryGetNftResponse {
+	Nft nft = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllNftRequest {
+  string collectionId = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryAllNftResponse {
+	repeated Nft nft = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetOwnerRequest {
+    string index = 1;
+    string collectionId = 2;
+
+}
+
+message QueryGetOwnerResponse {
+	Owner owner = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllOwnerRequest {
+  string index = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryAllOwnerResponse {
+	repeated Owner owner = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

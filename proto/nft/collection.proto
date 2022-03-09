@@ -1,0 +1,17 @@
+syntax = "proto3";
+package deaswang.nft.nft;
+
+option go_package = "github.com/deaswang/nft/x/nft/types";
+
+// Key: <index>/
+message Collection {
+  // use for index, same as contract if import from eth
+  string index = 1; 
+  // contract from eth
+  string contract = 2; 
+  string name = 3; 
+  string symbol = 4; 
+  string data = 5; 
+  
+}
+

@@ -1,0 +1,20 @@
+syntax = "proto3";
+package deaswang.nft.nft;
+
+import "gogoproto/gogo.proto";
+import "nft/params.proto";
+import "nft/collection.proto";
+import "nft/nft.proto";
+import "nft/owner.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/deaswang/nft/x/nft/types";
+
+// GenesisState defines the nft module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  repeated Collection collectionList = 2 [(gogoproto.nullable) = false];
+  repeated Nft nftList = 3 [(gogoproto.nullable) = false];
+  repeated Owner ownerList = 4 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}
