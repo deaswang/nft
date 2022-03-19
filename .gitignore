@@ -20,6 +20,7 @@ release/
 .idea/
 .vscode/
 .DS_Store
+vue/src/store/generated/
 
 bin/
 dist/
@@ -30,6 +31,3 @@ node_modules/
 build/
 *.swp
 
-coverage.txt
-*.json
-*.wasm

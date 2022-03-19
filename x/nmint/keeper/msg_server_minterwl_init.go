@@ -16,6 +16,11 @@ func (k msgServer) MinterwlInit(goCtx context.Context, msg *types.MsgMinterwlIni
 	if !found {
 		return nil, status.Error(codes.NotFound, "not found collection")
 	}
+	_, found = k.GetMinterwl(ctx, msg.CollectionId)
+	if found {
+		return nil, status.Error(codes.AlreadyExists, "minter exist")
+	}
+
 	minterwl := types.Minterwl{
 		Admin:        msg.Admin,
 		CollectionId: msg.CollectionId,
