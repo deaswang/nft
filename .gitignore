@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -21,3 +20,16 @@ release/
 .idea/
 .vscode/
 .DS_Store
+
+bin/
+dist/
+data/
+
+node_modules/
+.env
+build/
+*.swp
+
+coverage.txt
+*.json
+*.wasm
