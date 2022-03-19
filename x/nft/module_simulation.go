@@ -24,7 +24,23 @@ var (
 )
 
 const (
-// this line is used by starport scaffolding # simapp/module/const
+	opWeightMsgTransferFrom = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgTransferFrom int = 100
+
+	opWeightMsgApprove = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgApprove int = 100
+
+	opWeightMsgApproveAll = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgApproveAll int = 100
+
+	opWeightMsgCollectionInit = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCollectionInit int = 100
+
+	// this line is used by starport scaffolding # simapp/module/const
 )
 
 // GenerateGenesisState creates a randomized GenState of the module
@@ -56,6 +72,50 @@ func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
+
+	var weightMsgTransferFrom int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgTransferFrom, &weightMsgTransferFrom, nil,
+		func(_ *rand.Rand) {
+			weightMsgTransferFrom = defaultWeightMsgTransferFrom
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgTransferFrom,
+		nftsimulation.SimulateMsgTransferFrom(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgApprove int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgApprove, &weightMsgApprove, nil,
+		func(_ *rand.Rand) {
+			weightMsgApprove = defaultWeightMsgApprove
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgApprove,
+		nftsimulation.SimulateMsgApprove(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgApproveAll int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgApproveAll, &weightMsgApproveAll, nil,
+		func(_ *rand.Rand) {
+			weightMsgApproveAll = defaultWeightMsgApproveAll
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgApproveAll,
+		nftsimulation.SimulateMsgApproveAll(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCollectionInit int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCollectionInit, &weightMsgCollectionInit, nil,
+		func(_ *rand.Rand) {
+			weightMsgCollectionInit = defaultWeightMsgCollectionInit
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCollectionInit,
+		nftsimulation.SimulateMsgCollectionInit(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
 

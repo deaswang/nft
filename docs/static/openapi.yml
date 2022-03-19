@@ -11842,6 +11842,1083 @@ paths:
           type: boolean
       tags:
         - Query
+  /deaswang/nft/nft/collection:
+    get:
+      summary: Queries a list of Collection items.
+      operationId: DeaswangNftNftCollectionAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              collection:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    index:
+                      type: string
+                      title: 'use for index, same as contract if import from eth'
+                    contract:
+                      type: string
+                      title: contract from eth
+                    name:
+                      type: string
+                    symbol:
+                      type: string
+                    balance:
+                      type: string
+                      format: uint64
+                    data:
+                      type: string
+                  title: 'Key: <index>/'
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/deaswang/nft/nft/collection/{index}':
+    get:
+      summary: Queries a Collection by index.
+      operationId: DeaswangNftNftCollection
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              collection:
+                type: object
+                properties:
+                  index:
+                    type: string
+                    title: 'use for index, same as contract if import from eth'
+                  contract:
+                    type: string
+                    title: contract from eth
+                  name:
+                    type: string
+                  symbol:
+                    type: string
+                  balance:
+                    type: string
+                    format: uint64
+                  data:
+                    type: string
+                title: 'Key: <index>/'
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: index
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  '/deaswang/nft/nft/nft/{collectionId}':
+    get:
+      summary: Queries a list of Nft items.
+      operationId: DeaswangNftNftNftAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              nft:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    collectionId:
+                      type: string
+                    tokenId:
+                      type: string
+                    uri:
+                      type: string
+                    uriHash:
+                      type: string
+                    owner:
+                      type: string
+                    approval:
+                      type: string
+                    data:
+                      type: string
+                  title: Key <collectionId>/<tokenId>/
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: collectionId
+          in: path
+          required: true
+          type: string
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/deaswang/nft/nft/nft/{collectionId}/{tokenId}':
+    get:
+      summary: Queries a Nft by index.
+      operationId: DeaswangNftNftNft
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              nft:
+                type: object
+                properties:
+                  collectionId:
+                    type: string
+                  tokenId:
+                    type: string
+                  uri:
+                    type: string
+                  uriHash:
+                    type: string
+                  owner:
+                    type: string
+                  approval:
+                    type: string
+                  data:
+                    type: string
+                title: Key <collectionId>/<tokenId>/
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: collectionId
+          in: path
+          required: true
+          type: string
+        - name: tokenId
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  '/deaswang/nft/nft/owner/{index}':
+    get:
+      summary: Queries a list of Owner items.
+      operationId: DeaswangNftNftOwnerAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              owner:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    index:
+                      type: string
+                    collectionId:
+                      type: string
+                    balance:
+                      type: string
+                      format: uint64
+                    approvals:
+                      type: array
+                      items:
+                        type: string
+                    data:
+                      type: string
+                  title: 'Key: <index>/<collectionId>/'
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: index
+          in: path
+          required: true
+          type: string
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/deaswang/nft/nft/owner/{index}/{collectionId}':
+    get:
+      summary: Queries a Owner by index.
+      operationId: DeaswangNftNftOwner
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              owner:
+                type: object
+                properties:
+                  index:
+                    type: string
+                  collectionId:
+                    type: string
+                  balance:
+                    type: string
+                    format: uint64
+                  approvals:
+                    type: array
+                    items:
+                      type: string
+                  data:
+                    type: string
+                title: 'Key: <index>/<collectionId>/'
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: index
+          in: path
+          required: true
+          type: string
+        - name: collectionId
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /deaswang/nft/nft/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: DeaswangNftNftParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /deaswang/nft/nmint/minter:
+    get:
+      summary: Queries a list of Minter items.
+      operationId: DeaswangNftNmintMinterAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              minter:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    admin:
+                      type: string
+                    collectionId:
+                      type: string
+                    supply:
+                      type: string
+                      format: uint64
+                    price:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
+                    pause:
+                      type: boolean
+                    creator:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/deaswang/nft/nmint/minter/{index}':
+    get:
+      summary: Queries a Minter by index.
+      operationId: DeaswangNftNmintMinter
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              minter:
+                type: object
+                properties:
+                  admin:
+                    type: string
+                  collectionId:
+                    type: string
+                  supply:
+                    type: string
+                    format: uint64
+                  price:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  pause:
+                    type: boolean
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: index
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /deaswang/nft/nmint/minterwl:
+    get:
+      summary: Queries a list of Minterwl items.
+      operationId: DeaswangNftNmintMinterwlAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              minterwl:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    collectionId:
+                      type: string
+                    admin:
+                      type: string
+                    supply:
+                      type: string
+                      format: uint64
+                    whitelist:
+                      type: array
+                      items:
+                        type: string
+                    wllimit:
+                      type: string
+                      format: uint64
+                    price:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
+                    creator:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/deaswang/nft/nmint/minterwl/{collectionId}':
+    get:
+      summary: Queries a Minterwl by index.
+      operationId: DeaswangNftNmintMinterwl
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              minterwl:
+                type: object
+                properties:
+                  collectionId:
+                    type: string
+                  admin:
+                    type: string
+                  supply:
+                    type: string
+                    format: uint64
+                  whitelist:
+                    type: array
+                    items:
+                      type: string
+                  wllimit:
+                    type: string
+                    format: uint64
+                  price:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: collectionId
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /deaswang/nft/nmint/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: DeaswangNftNmintParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /ibc/apps/transfer/v1/denom_traces:
     get:
       summary: DenomTraces queries all denomination traces.
@@ -19759,6 +20836,575 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  deaswang.nft.nft.Collection:
+    type: object
+    properties:
+      index:
+        type: string
+        title: 'use for index, same as contract if import from eth'
+      contract:
+        type: string
+        title: contract from eth
+      name:
+        type: string
+      symbol:
+        type: string
+      balance:
+        type: string
+        format: uint64
+      data:
+        type: string
+    title: 'Key: <index>/'
+  deaswang.nft.nft.MsgApproveAllResponse:
+    type: object
+  deaswang.nft.nft.MsgApproveResponse:
+    type: object
+  deaswang.nft.nft.MsgCollectionInitResponse:
+    type: object
+  deaswang.nft.nft.MsgTransferFromResponse:
+    type: object
+  deaswang.nft.nft.Nft:
+    type: object
+    properties:
+      collectionId:
+        type: string
+      tokenId:
+        type: string
+      uri:
+        type: string
+      uriHash:
+        type: string
+      owner:
+        type: string
+      approval:
+        type: string
+      data:
+        type: string
+    title: Key <collectionId>/<tokenId>/
+  deaswang.nft.nft.Owner:
+    type: object
+    properties:
+      index:
+        type: string
+      collectionId:
+        type: string
+      balance:
+        type: string
+        format: uint64
+      approvals:
+        type: array
+        items:
+          type: string
+      data:
+        type: string
+    title: 'Key: <index>/<collectionId>/'
+  deaswang.nft.nft.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  deaswang.nft.nft.QueryAllCollectionResponse:
+    type: object
+    properties:
+      collection:
+        type: array
+        items:
+          type: object
+          properties:
+            index:
+              type: string
+              title: 'use for index, same as contract if import from eth'
+            contract:
+              type: string
+              title: contract from eth
+            name:
+              type: string
+            symbol:
+              type: string
+            balance:
+              type: string
+              format: uint64
+            data:
+              type: string
+          title: 'Key: <index>/'
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  deaswang.nft.nft.QueryAllNftResponse:
+    type: object
+    properties:
+      nft:
+        type: array
+        items:
+          type: object
+          properties:
+            collectionId:
+              type: string
+            tokenId:
+              type: string
+            uri:
+              type: string
+            uriHash:
+              type: string
+            owner:
+              type: string
+            approval:
+              type: string
+            data:
+              type: string
+          title: Key <collectionId>/<tokenId>/
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  deaswang.nft.nft.QueryAllOwnerResponse:
+    type: object
+    properties:
+      owner:
+        type: array
+        items:
+          type: object
+          properties:
+            index:
+              type: string
+            collectionId:
+              type: string
+            balance:
+              type: string
+              format: uint64
+            approvals:
+              type: array
+              items:
+                type: string
+            data:
+              type: string
+          title: 'Key: <index>/<collectionId>/'
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  deaswang.nft.nft.QueryGetCollectionResponse:
+    type: object
+    properties:
+      collection:
+        type: object
+        properties:
+          index:
+            type: string
+            title: 'use for index, same as contract if import from eth'
+          contract:
+            type: string
+            title: contract from eth
+          name:
+            type: string
+          symbol:
+            type: string
+          balance:
+            type: string
+            format: uint64
+          data:
+            type: string
+        title: 'Key: <index>/'
+  deaswang.nft.nft.QueryGetNftResponse:
+    type: object
+    properties:
+      nft:
+        type: object
+        properties:
+          collectionId:
+            type: string
+          tokenId:
+            type: string
+          uri:
+            type: string
+          uriHash:
+            type: string
+          owner:
+            type: string
+          approval:
+            type: string
+          data:
+            type: string
+        title: Key <collectionId>/<tokenId>/
+  deaswang.nft.nft.QueryGetOwnerResponse:
+    type: object
+    properties:
+      owner:
+        type: object
+        properties:
+          index:
+            type: string
+          collectionId:
+            type: string
+          balance:
+            type: string
+            format: uint64
+          approvals:
+            type: array
+            items:
+              type: string
+          data:
+            type: string
+        title: 'Key: <index>/<collectionId>/'
+  deaswang.nft.nft.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
+  deaswang.nft.nmint.Minter:
+    type: object
+    properties:
+      admin:
+        type: string
+      collectionId:
+        type: string
+      supply:
+        type: string
+        format: uint64
+      price:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      pause:
+        type: boolean
+      creator:
+        type: string
+  deaswang.nft.nmint.Minterwl:
+    type: object
+    properties:
+      collectionId:
+        type: string
+      admin:
+        type: string
+      supply:
+        type: string
+        format: uint64
+      whitelist:
+        type: array
+        items:
+          type: string
+      wllimit:
+        type: string
+        format: uint64
+      price:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      creator:
+        type: string
+  deaswang.nft.nmint.MsgMintResponse:
+    type: object
+    properties:
+      tokenId:
+        type: string
+  deaswang.nft.nmint.MsgMinterInitResponse:
+    type: object
+  deaswang.nft.nmint.MsgMinterMintResponse:
+    type: object
+    properties:
+      tokenId:
+        type: array
+        items:
+          type: string
+  deaswang.nft.nmint.MsgMinterPauseResponse:
+    type: object
+  deaswang.nft.nmint.MsgMinterPriceResponse:
+    type: object
+  deaswang.nft.nmint.MsgMinterwlInitResponse:
+    type: object
+  deaswang.nft.nmint.MsgMinterwlMintResponse:
+    type: object
+    properties:
+      tokenId:
+        type: array
+        items:
+          type: string
+  deaswang.nft.nmint.MsgMinterwlPriceResponse:
+    type: object
+  deaswang.nft.nmint.MsgMinterwlWhitelistResponse:
+    type: object
+  deaswang.nft.nmint.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  deaswang.nft.nmint.QueryAllMinterResponse:
+    type: object
+    properties:
+      minter:
+        type: array
+        items:
+          type: object
+          properties:
+            admin:
+              type: string
+            collectionId:
+              type: string
+            supply:
+              type: string
+              format: uint64
+            price:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+            pause:
+              type: boolean
+            creator:
+              type: string
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  deaswang.nft.nmint.QueryAllMinterwlResponse:
+    type: object
+    properties:
+      minterwl:
+        type: array
+        items:
+          type: object
+          properties:
+            collectionId:
+              type: string
+            admin:
+              type: string
+            supply:
+              type: string
+              format: uint64
+            whitelist:
+              type: array
+              items:
+                type: string
+            wllimit:
+              type: string
+              format: uint64
+            price:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+            creator:
+              type: string
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  deaswang.nft.nmint.QueryGetMinterResponse:
+    type: object
+    properties:
+      minter:
+        type: object
+        properties:
+          admin:
+            type: string
+          collectionId:
+            type: string
+          supply:
+            type: string
+            format: uint64
+          price:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          pause:
+            type: boolean
+          creator:
+            type: string
+  deaswang.nft.nmint.QueryGetMinterwlResponse:
+    type: object
+    properties:
+      minterwl:
+        type: object
+        properties:
+          collectionId:
+            type: string
+          admin:
+            type: string
+          supply:
+            type: string
+            format: uint64
+          whitelist:
+            type: array
+            items:
+              type: string
+          wllimit:
+            type: string
+            format: uint64
+          price:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          creator:
+            type: string
+  deaswang.nft.nmint.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
   ibc.applications.transfer.v1.DenomTrace:
     type: object
     properties:

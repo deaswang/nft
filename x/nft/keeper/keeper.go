@@ -36,7 +36,6 @@ func NewKeeper(
 	}
 
 	return &Keeper{
-
 		cdc:        cdc,
 		storeKey:   storeKey,
 		memKey:     memKey,
@@ -47,4 +46,37 @@ func NewKeeper(
 
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
+}
+
+func (k Keeper) IsApprovedOrOwner(ctx sdk.Context, sender string, collectionId string, tokenId string) bool {
+	nft, found := k.GetNft(ctx, collectionId, tokenId)
+	if !found {
+		return false
+	}
+	if nft.Owner == sender || nft.Approval == sender {
+		return true
+	}
+	owner, found := k.GetOwner(ctx, sender, collectionId)
+	if !found {
+		return false
+	}
+	for _, approval := range owner.Approvals {
+		if approval == sender {
+			return true
+		}
+	}
+	return false
+}
+
+func (k Keeper) IsApprovedForAll(ctx sdk.Context, creater string, approver string, collectionId string, tokenId string) bool {
+	owner, found := k.GetOwner(ctx, creater, collectionId)
+	if !found {
+		return false
+	}
+	for _, approval := range owner.Approvals {
+		if approval == approver {
+			return true
+		}
+	}
+	return false
 }

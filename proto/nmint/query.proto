@@ -1,0 +1,89 @@
+syntax = "proto3";
+package deaswang.nft.nmint;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "nmint/params.proto";
+import "nmint/minter.proto";
+import "nmint/minterwl.proto";
+// this line is used by starport scaffolding # 1
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/deaswang/nft/x/nmint/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/deaswang/nft/nmint/params";
+  }
+  // Queries a Minter by index.
+	rpc Minter(QueryGetMinterRequest) returns (QueryGetMinterResponse) {
+		option (google.api.http).get = "/deaswang/nft/nmint/minter/{index}";
+	}
+
+	// Queries a list of Minter items.
+	rpc MinterAll(QueryAllMinterRequest) returns (QueryAllMinterResponse) {
+		option (google.api.http).get = "/deaswang/nft/nmint/minter";
+	}
+
+// Queries a Minterwl by index.
+	rpc Minterwl(QueryGetMinterwlRequest) returns (QueryGetMinterwlResponse) {
+		option (google.api.http).get = "/deaswang/nft/nmint/minterwl/{collectionId}";
+	}
+
+	// Queries a list of Minterwl items.
+	rpc MinterwlAll(QueryAllMinterwlRequest) returns (QueryAllMinterwlResponse) {
+		option (google.api.http).get = "/deaswang/nft/nmint/minterwl";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetMinterRequest {
+	  string index = 1;
+
+}
+
+message QueryGetMinterResponse {
+	Minter minter = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllMinterRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllMinterResponse {
+	repeated Minter minter = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetMinterwlRequest {
+	  string collectionId = 1;
+
+}
+
+message QueryGetMinterwlResponse {
+	Minterwl minterwl = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllMinterwlRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllMinterwlResponse {
+	repeated Minterwl minterwl = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

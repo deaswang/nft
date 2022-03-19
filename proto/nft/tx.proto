@@ -7,7 +7,54 @@ option go_package = "github.com/deaswang/nft/x/nft/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+  rpc TransferFrom(MsgTransferFrom) returns (MsgTransferFromResponse);
+  rpc Approve(MsgApprove) returns (MsgApproveResponse);
+  rpc ApproveAll(MsgApproveAll) returns (MsgApproveAllResponse);
+  rpc CollectionInit(MsgCollectionInit) returns (MsgCollectionInitResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgTransferFrom {
+  string creator = 1;
+  string from = 2;
+  string to = 3;
+  string collectionId = 4;
+  string tokenId = 5;
+}
+
+message MsgTransferFromResponse {
+}
+
+message MsgApprove {
+  string creator = 1;
+  string approver = 2;
+  string collectionId = 3;
+  string tokenId = 4;
+}
+
+message MsgApproveResponse {
+}
+
+message MsgApproveAll {
+  string creator = 1;
+  string operator = 2;
+  bool approved = 3;
+  string collectionId = 4;
+}
+
+message MsgApproveAllResponse {
+}
+
+message MsgCollectionInit {
+  string creator = 1;
+  string index = 2;
+  string contract = 3;
+  string name = 4;
+  string symbol = 5;
+  string data = 6;
+}
+
+message MsgCollectionInitResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

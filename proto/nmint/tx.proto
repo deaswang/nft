@@ -1,0 +1,183 @@
+syntax = "proto3";
+package deaswang.nft.nmint;
+
+import "nmint/minter.proto";
+import "nmint/minterwl.proto";
+// this line is used by starport scaffolding # proto/tx/import
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/deaswang/nft/x/nmint/types";
+
+// Msg defines the Msg service.
+service Msg {
+  //     rpc CreateMinter(MsgCreateMinter) returns (MsgCreateMinterResponse);
+  // rpc UpdateMinter(MsgUpdateMinter) returns (MsgUpdateMinterResponse);
+  // rpc DeleteMinter(MsgDeleteMinter) returns (MsgDeleteMinterResponse);
+  rpc Mint(MsgMint) returns (MsgMintResponse);
+  rpc MinterMint(MsgMinterMint) returns (MsgMinterMintResponse);
+  rpc MinterInit(MsgMinterInit) returns (MsgMinterInitResponse);
+  rpc MinterPause(MsgMinterPause) returns (MsgMinterPauseResponse);
+  // rpc CreateMinterwl(MsgCreateMinterwl) returns (MsgCreateMinterwlResponse);
+  // rpc UpdateMinterwl(MsgUpdateMinterwl) returns (MsgUpdateMinterwlResponse);
+  // rpc DeleteMinterwl(MsgDeleteMinterwl) returns (MsgDeleteMinterwlResponse);
+  rpc MinterwlInit(MsgMinterwlInit) returns (MsgMinterwlInitResponse);
+  rpc MinterwlMint(MsgMinterwlMint) returns (MsgMinterwlMintResponse);
+  rpc MinterwlWhitelist(MsgMinterwlWhitelist) returns (MsgMinterwlWhitelistResponse);
+  rpc MinterwlPrice(MsgMinterwlPrice) returns (MsgMinterwlPriceResponse);
+  rpc MinterPrice(MsgMinterPrice) returns (MsgMinterPriceResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+// message MsgCreateMinter {
+//   string creator = 1;
+
+//   string admin = 2;
+//   string collectionId = 3;
+//   uint64 supply = 4;
+//   cosmos.base.v1beta1.Coin price = 5 [(gogoproto.nullable) = false];
+//   bool pause = 6;
+// }
+// message MsgCreateMinterResponse {}
+
+// message MsgUpdateMinter {
+//   string creator = 1;
+
+//   string admin = 2;
+//   string collectionId = 3;
+//   uint64 supply = 4;
+//   cosmos.base.v1beta1.Coin price = 5 [(gogoproto.nullable) = false];
+//   bool pause = 6;
+// }
+// message MsgUpdateMinterResponse {}
+
+// message MsgDeleteMinter {
+//   string creator = 1;
+//   string collectionId = 2;
+// }
+// message MsgDeleteMinterResponse {}
+
+message MsgMint {
+  string creator = 1;
+  string collectionId = 2;
+  uint64 count = 3;
+  string to = 4;
+}
+
+message MsgMintResponse {
+  string tokenId = 1;
+}
+
+message MsgMinterMint {
+  string creator = 1;
+  string collectionId = 2;
+  uint64 count = 3;
+  string to = 4;
+}
+
+message MsgMinterMintResponse {
+  repeated string tokenId = 1;
+}
+
+message MsgMinterInit {
+  string creator = 1;
+  string admin = 2;
+  string collectionId = 3;
+  uint64 supply = 4;
+  cosmos.base.v1beta1.Coin price = 5 [(gogoproto.nullable) = false];
+}
+
+message MsgMinterInitResponse {
+}
+
+message MsgMinterPause {
+  string creator = 1;
+  string collectionId = 2;
+  bool paused = 3;
+}
+
+message MsgMinterPauseResponse {
+}
+
+// message MsgCreateMinterwl {
+//   string creator = 1;
+//   string collectionId = 2;
+
+//   string admin = 3;
+//   string supply = 4;
+//   repeated string whitelist = 5;
+//   uint64 wllimit = 6;
+//   cosmos.base.v1beta1.Coin price = 7 [(gogoproto.nullable) = false];
+// }
+// message MsgCreateMinterwlResponse {}
+
+// message MsgUpdateMinterwl {
+//   string creator = 1;
+//   string collectionId = 2;
+
+//   string admin = 3;
+//   string supply = 4;
+//   repeated string whitelist = 5;
+//   uint64 wllimit = 6;
+//   cosmos.base.v1beta1.Coin price = 7 [(gogoproto.nullable) = false];
+// }
+// message MsgUpdateMinterwlResponse {}
+
+// message MsgDeleteMinterwl {
+//   string creator = 1;
+//   string collectionId = 2;
+// }
+// message MsgDeleteMinterwlResponse {}
+
+message MsgMinterwlInit {
+  string creator = 1;
+  string admin = 2;
+  string collectionId = 3;
+  uint64 supply = 4;
+  repeated string whitelist = 5;
+  uint64 wllimit = 6;
+  cosmos.base.v1beta1.Coin price = 7 [(gogoproto.nullable) = false];
+}
+
+message MsgMinterwlInitResponse {
+}
+
+message MsgMinterwlMint {
+  string creator = 1;
+  string collectionId = 2;
+  uint64 count = 3;
+}
+
+message MsgMinterwlMintResponse {
+  repeated string tokenId = 1;
+}
+
+message MsgMinterwlWhitelist {
+  string creator = 1;
+  string collectionId = 2;
+  repeated string whitelist = 3;
+  uint64 wllimit = 4;
+}
+
+message MsgMinterwlWhitelistResponse {
+}
+
+message MsgMinterwlPrice {
+  string creator = 1;
+  string collectionId = 2;
+  cosmos.base.v1beta1.Coin price = 3 [(gogoproto.nullable) = false];
+}
+
+message MsgMinterwlPriceResponse {
+}
+
+message MsgMinterPrice {
+  string creator = 1;
+  string collectionId = 2;
+  cosmos.base.v1beta1.Coin price = 3 [(gogoproto.nullable) = false];
+}
+
+message MsgMinterPriceResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message

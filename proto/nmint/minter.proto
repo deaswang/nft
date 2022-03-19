@@ -1,0 +1,16 @@
+syntax = "proto3";
+package deaswang.nft.nmint;
+
+option go_package = "github.com/deaswang/nft/x/nmint/types";
+import "gogoproto/gogo.proto"; 
+import "cosmos/base/v1beta1/coin.proto"; 
+
+message Minter {
+  string admin = 1; 
+  string collectionId = 2; 
+  uint64 supply = 3; 
+  cosmos.base.v1beta1.Coin price = 4 [(gogoproto.nullable) = false]; 
+  bool pause = 5; 
+  string creator = 6;
+}
+

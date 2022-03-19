@@ -40,21 +40,22 @@ func TestNftGet(t *testing.T) {
 		)
 	}
 }
-func TestNftRemove(t *testing.T) {
-	keeper, ctx := keepertest.NftKeeper(t)
-	items := createNNft(keeper, ctx, 10)
-	for _, item := range items {
-		keeper.RemoveNft(ctx,
-			item.CollectionId,
-			item.TokenId,
-		)
-		_, found := keeper.GetNft(ctx,
-			item.CollectionId,
-			item.TokenId,
-		)
-		require.False(t, found)
-	}
-}
+
+// func TestNftRemove(t *testing.T) {
+// 	keeper, ctx := keepertest.NftKeeper(t)
+// 	items := createNNft(keeper, ctx, 10)
+// 	for _, item := range items {
+// 		keeper.RemoveNft(ctx,
+// 			item.CollectionId,
+// 			item.TokenId,
+// 		)
+// 		_, found := keeper.GetNft(ctx,
+// 			item.CollectionId,
+// 			item.TokenId,
+// 		)
+// 		require.False(t, found)
+// 	}
+// }
 
 func TestNftGetAll(t *testing.T) {
 	keeper, ctx := keepertest.NftKeeper(t)

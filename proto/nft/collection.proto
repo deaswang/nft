@@ -11,7 +11,8 @@ message Collection {
   string contract = 2; 
   string name = 3; 
   string symbol = 4; 
-  string data = 5; 
+  uint64 balance = 5;
+  string data = 6; 
   
 }
 
