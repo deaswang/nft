@@ -28,8 +28,10 @@ func (k msgServer) MinterMint(goCtx context.Context, msg *types.MsgMinterMint) (
 	if collection.Balance+msg.Count > minter.Supply {
 		return nil, status.Error(codes.NotFound, "not enough supply")
 	}
+
 	var tokenIds []string
-	for i := uint64(0); i < msg.Count; i++ {
+	i := uint64(0)
+	for ; i < msg.Count; i++ {
 		tokenId := strconv.FormatInt(int64(collection.Balance+i), 10)
 		tokenIds = append(tokenIds, tokenId)
 		nft := nfttypes.Nft{
@@ -37,10 +39,26 @@ func (k msgServer) MinterMint(goCtx context.Context, msg *types.MsgMinterMint) (
 			TokenId:      tokenId,
 			Owner:        msg.To,
 		}
-		k.bankKeeper.SendCoins(ctx, sdk.AccAddress(msg.Creator), sdk.AccAddress(minter.Admin),
+		err := k.bankKeeper.SendCoins(ctx, sdk.AccAddress(msg.Creator), sdk.AccAddress(minter.Admin),
 			sdk.NewCoins(minter.Price))
+		if err != nil {
+			break
+		}
 		k.nftKeeper.SetNft(ctx, nft)
 	}
+
+	owner, found := k.nftKeeper.GetOwner(ctx, msg.Creator, msg.CollectionId)
+	if found {
+		owner.Balance += i
+	} else {
+		owner = nfttypes.Owner{
+			Index:        msg.Creator,
+			CollectionId: msg.CollectionId,
+			Balance:      i,
+			Approvals:    []string{},
+		}
+	}
+	k.nftKeeper.SetOwner(ctx, owner)
 
 	return &types.MsgMinterMintResponse{TokenId: tokenIds}, nil
 }

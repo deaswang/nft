@@ -18,6 +18,7 @@ service Msg {
   rpc MinterMint(MsgMinterMint) returns (MsgMinterMintResponse);
   rpc MinterInit(MsgMinterInit) returns (MsgMinterInitResponse);
   rpc MinterPause(MsgMinterPause) returns (MsgMinterPauseResponse);
+  rpc MinterPrice(MsgMinterPrice) returns (MsgMinterPriceResponse);
   // rpc CreateMinterwl(MsgCreateMinterwl) returns (MsgCreateMinterwlResponse);
   // rpc UpdateMinterwl(MsgUpdateMinterwl) returns (MsgUpdateMinterwlResponse);
   // rpc DeleteMinterwl(MsgDeleteMinterwl) returns (MsgDeleteMinterwlResponse);
@@ -25,7 +26,6 @@ service Msg {
   rpc MinterwlMint(MsgMinterwlMint) returns (MsgMinterwlMintResponse);
   rpc MinterwlWhitelist(MsgMinterwlWhitelist) returns (MsgMinterwlWhitelistResponse);
   rpc MinterwlPrice(MsgMinterwlPrice) returns (MsgMinterwlPriceResponse);
-  rpc MinterPrice(MsgMinterPrice) returns (MsgMinterPriceResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
