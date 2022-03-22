@@ -101,7 +101,7 @@ import (
 )
 
 const (
-	AccountAddressPrefix = "cosmos"
+	AccountAddressPrefix = "nft"
 	Name                 = "nft"
 )
 
