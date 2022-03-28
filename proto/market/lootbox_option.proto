@@ -1,0 +1,14 @@
+syntax = "proto3";
+package deaswang.nft.market;
+
+option go_package = "github.com/deaswang/nft/x/market/types";
+
+message LootboxOption {
+  string name = 1; 
+  uint64 maxQuantity = 2; 
+  repeated int32 probability = 3; 
+  bool guaranteed = 4; 
+  repeated int32 guarantees = 5; 
+  string creator = 6;
+}
+

@@ -17927,6 +17927,534 @@ paths:
           format: int64
       tags:
         - Query
+  /deaswang/nft/market/lootbox_option:
+    get:
+      summary: Queries a list of LootboxOption items.
+      operationId: DeaswangNftMarketLootboxOptionAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              lootboxOption:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    maxQuantity:
+                      type: string
+                      format: uint64
+                    probability:
+                      type: array
+                      items:
+                        type: integer
+                        format: int32
+                    guaranteed:
+                      type: boolean
+                    guarantees:
+                      type: array
+                      items:
+                        type: integer
+                        format: int32
+                    creator:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/deaswang/nft/market/lootbox_option/{name}':
+    get:
+      summary: Queries a LootboxOption by index.
+      operationId: DeaswangNftMarketLootboxOption
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              lootboxOption:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  maxQuantity:
+                    type: string
+                    format: uint64
+                  probability:
+                    type: array
+                    items:
+                      type: integer
+                      format: int32
+                  guaranteed:
+                    type: boolean
+                  guarantees:
+                    type: array
+                    items:
+                      type: integer
+                      format: int32
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /deaswang/nft/market/order:
+    get:
+      summary: Queries a list of Order items.
+      operationId: DeaswangNftMarketOrderAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              order:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    hash:
+                      type: string
+                    maker:
+                      type: string
+                    taker:
+                      type: string
+                    makerRelayerFee:
+                      type: string
+                      format: uint64
+                    takerRelayerFee:
+                      type: string
+                      format: uint64
+                    makerProtocolFee:
+                      type: string
+                      format: uint64
+                    takerProtocolFee:
+                      type: string
+                      format: uint64
+                    feeRecipient:
+                      type: string
+                    feeMethod:
+                      type: integer
+                      format: int32
+                    side:
+                      type: integer
+                      format: int32
+                    saleKind:
+                      type: integer
+                      format: int32
+                    paymentToken:
+                      type: string
+                    basePrice:
+                      type: string
+                      format: uint64
+                    extraPrice:
+                      type: string
+                      format: uint64
+                    listingTime:
+                      type: string
+                      format: uint64
+                    expirationTime:
+                      type: string
+                      format: uint64
+                    salt:
+                      type: string
+                      format: uint64
+                    creator:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/deaswang/nft/market/order/{hash}/{maker}/{taker}':
+    get:
+      summary: Queries a Order by index.
+      operationId: DeaswangNftMarketOrder
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              order:
+                type: object
+                properties:
+                  hash:
+                    type: string
+                  maker:
+                    type: string
+                  taker:
+                    type: string
+                  makerRelayerFee:
+                    type: string
+                    format: uint64
+                  takerRelayerFee:
+                    type: string
+                    format: uint64
+                  makerProtocolFee:
+                    type: string
+                    format: uint64
+                  takerProtocolFee:
+                    type: string
+                    format: uint64
+                  feeRecipient:
+                    type: string
+                  feeMethod:
+                    type: integer
+                    format: int32
+                  side:
+                    type: integer
+                    format: int32
+                  saleKind:
+                    type: integer
+                    format: int32
+                  paymentToken:
+                    type: string
+                  basePrice:
+                    type: string
+                    format: uint64
+                  extraPrice:
+                    type: string
+                    format: uint64
+                  listingTime:
+                    type: string
+                    format: uint64
+                  expirationTime:
+                    type: string
+                    format: uint64
+                  salt:
+                    type: string
+                    format: uint64
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          type: string
+        - name: maker
+          in: path
+          required: true
+          type: string
+        - name: taker
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /deaswang/nft/market/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: DeaswangNftMarketParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /deaswang/nft/market/seed:
+    get:
+      summary: Queries a Seed by index.
+      operationId: DeaswangNftMarketSeed
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Seed:
+                type: object
+                properties:
+                  seed:
+                    type: string
+                    format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /deaswang/nft/nft/collection:
     get:
       summary: Queries a list of Collection items.
@@ -43780,6 +44308,328 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  deaswang.nft.market.LootboxOption:
+    type: object
+    properties:
+      name:
+        type: string
+      maxQuantity:
+        type: string
+        format: uint64
+      probability:
+        type: array
+        items:
+          type: integer
+          format: int32
+      guaranteed:
+        type: boolean
+      guarantees:
+        type: array
+        items:
+          type: integer
+          format: int32
+      creator:
+        type: string
+  deaswang.nft.market.MsgCreateLootboxOptionResponse:
+    type: object
+  deaswang.nft.market.MsgCreateOrderResponse:
+    type: object
+  deaswang.nft.market.MsgDeleteLootboxOptionResponse:
+    type: object
+  deaswang.nft.market.MsgDeleteOrderResponse:
+    type: object
+  deaswang.nft.market.MsgUpdateLootboxOptionResponse:
+    type: object
+  deaswang.nft.market.MsgUpdateOrderResponse:
+    type: object
+  deaswang.nft.market.Order:
+    type: object
+    properties:
+      hash:
+        type: string
+      maker:
+        type: string
+      taker:
+        type: string
+      makerRelayerFee:
+        type: string
+        format: uint64
+      takerRelayerFee:
+        type: string
+        format: uint64
+      makerProtocolFee:
+        type: string
+        format: uint64
+      takerProtocolFee:
+        type: string
+        format: uint64
+      feeRecipient:
+        type: string
+      feeMethod:
+        type: integer
+        format: int32
+      side:
+        type: integer
+        format: int32
+      saleKind:
+        type: integer
+        format: int32
+      paymentToken:
+        type: string
+      basePrice:
+        type: string
+        format: uint64
+      extraPrice:
+        type: string
+        format: uint64
+      listingTime:
+        type: string
+        format: uint64
+      expirationTime:
+        type: string
+        format: uint64
+      salt:
+        type: string
+        format: uint64
+      creator:
+        type: string
+  deaswang.nft.market.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  deaswang.nft.market.QueryAllLootboxOptionResponse:
+    type: object
+    properties:
+      lootboxOption:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            maxQuantity:
+              type: string
+              format: uint64
+            probability:
+              type: array
+              items:
+                type: integer
+                format: int32
+            guaranteed:
+              type: boolean
+            guarantees:
+              type: array
+              items:
+                type: integer
+                format: int32
+            creator:
+              type: string
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  deaswang.nft.market.QueryAllOrderResponse:
+    type: object
+    properties:
+      order:
+        type: array
+        items:
+          type: object
+          properties:
+            hash:
+              type: string
+            maker:
+              type: string
+            taker:
+              type: string
+            makerRelayerFee:
+              type: string
+              format: uint64
+            takerRelayerFee:
+              type: string
+              format: uint64
+            makerProtocolFee:
+              type: string
+              format: uint64
+            takerProtocolFee:
+              type: string
+              format: uint64
+            feeRecipient:
+              type: string
+            feeMethod:
+              type: integer
+              format: int32
+            side:
+              type: integer
+              format: int32
+            saleKind:
+              type: integer
+              format: int32
+            paymentToken:
+              type: string
+            basePrice:
+              type: string
+              format: uint64
+            extraPrice:
+              type: string
+              format: uint64
+            listingTime:
+              type: string
+              format: uint64
+            expirationTime:
+              type: string
+              format: uint64
+            salt:
+              type: string
+              format: uint64
+            creator:
+              type: string
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  deaswang.nft.market.QueryGetLootboxOptionResponse:
+    type: object
+    properties:
+      lootboxOption:
+        type: object
+        properties:
+          name:
+            type: string
+          maxQuantity:
+            type: string
+            format: uint64
+          probability:
+            type: array
+            items:
+              type: integer
+              format: int32
+          guaranteed:
+            type: boolean
+          guarantees:
+            type: array
+            items:
+              type: integer
+              format: int32
+          creator:
+            type: string
+  deaswang.nft.market.QueryGetOrderResponse:
+    type: object
+    properties:
+      order:
+        type: object
+        properties:
+          hash:
+            type: string
+          maker:
+            type: string
+          taker:
+            type: string
+          makerRelayerFee:
+            type: string
+            format: uint64
+          takerRelayerFee:
+            type: string
+            format: uint64
+          makerProtocolFee:
+            type: string
+            format: uint64
+          takerProtocolFee:
+            type: string
+            format: uint64
+          feeRecipient:
+            type: string
+          feeMethod:
+            type: integer
+            format: int32
+          side:
+            type: integer
+            format: int32
+          saleKind:
+            type: integer
+            format: int32
+          paymentToken:
+            type: string
+          basePrice:
+            type: string
+            format: uint64
+          extraPrice:
+            type: string
+            format: uint64
+          listingTime:
+            type: string
+            format: uint64
+          expirationTime:
+            type: string
+            format: uint64
+          salt:
+            type: string
+            format: uint64
+          creator:
+            type: string
+  deaswang.nft.market.QueryGetSeedResponse:
+    type: object
+    properties:
+      Seed:
+        type: object
+        properties:
+          seed:
+            type: string
+            format: uint64
+  deaswang.nft.market.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
+  deaswang.nft.market.Seed:
+    type: object
+    properties:
+      seed:
+        type: string
+        format: uint64
   deaswang.nft.nft.Collection:
     type: object
     properties:

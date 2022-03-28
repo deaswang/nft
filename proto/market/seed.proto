@@ -1,0 +1,9 @@
+syntax = "proto3";
+package deaswang.nft.market;
+
+option go_package = "github.com/deaswang/nft/x/market/types";
+
+message Seed {
+  uint64 seed = 1; 
+  
+}

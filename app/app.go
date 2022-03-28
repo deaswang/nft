@@ -91,6 +91,9 @@ import (
 	"github.com/tendermint/starport/starport/pkg/openapiconsole"
 
 	"github.com/deaswang/nft/docs"
+	marketmodule "github.com/deaswang/nft/x/market"
+	marketmodulekeeper "github.com/deaswang/nft/x/market/keeper"
+	marketmoduletypes "github.com/deaswang/nft/x/market/types"
 	nftmodule "github.com/deaswang/nft/x/nft"
 	nftmodulekeeper "github.com/deaswang/nft/x/nft/keeper"
 	nftmoduletypes "github.com/deaswang/nft/x/nft/types"
@@ -151,6 +154,7 @@ var (
 		vesting.AppModuleBasic{},
 		nftmodule.AppModuleBasic{},
 		nmintmodule.AppModuleBasic{},
+		marketmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -164,6 +168,7 @@ var (
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
 		nftmoduletypes.ModuleName:      {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		marketmoduletypes.ModuleName:   {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -224,6 +229,8 @@ type App struct {
 	NftKeeper nftmodulekeeper.Keeper
 
 	NmintKeeper nmintmodulekeeper.Keeper
+
+	MarketKeeper marketmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -262,6 +269,7 @@ func New(
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		nftmoduletypes.StoreKey,
 		nmintmoduletypes.StoreKey,
+		marketmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -381,6 +389,17 @@ func New(
 	)
 	nmintModule := nmintmodule.NewAppModule(appCodec, app.NmintKeeper, app.AccountKeeper, app.BankKeeper)
 
+	app.MarketKeeper = *marketmodulekeeper.NewKeeper(
+		appCodec,
+		keys[marketmoduletypes.StoreKey],
+		keys[marketmoduletypes.MemStoreKey],
+		app.GetSubspace(marketmoduletypes.ModuleName),
+
+		app.BankKeeper,
+		app.NftKeeper,
+	)
+	marketModule := marketmodule.NewAppModule(appCodec, app.MarketKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -421,6 +440,7 @@ func New(
 		transferModule,
 		nftModule,
 		nmintModule,
+		marketModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -457,6 +477,7 @@ func New(
 		ibctransfertypes.ModuleName,
 		nftmoduletypes.ModuleName,
 		nmintmoduletypes.ModuleName,
+		marketmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -481,6 +502,7 @@ func New(
 		transferModule,
 		nftModule,
 		nmintModule,
+		marketModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -670,6 +692,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(nftmoduletypes.ModuleName)
 	paramsKeeper.Subspace(nmintmoduletypes.ModuleName)
+	paramsKeeper.Subspace(marketmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

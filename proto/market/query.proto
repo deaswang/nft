@@ -1,0 +1,100 @@
+syntax = "proto3";
+package deaswang.nft.market;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "market/params.proto";
+import "market/lootbox_option.proto";
+import "market/seed.proto";
+import "market/order.proto";
+// this line is used by starport scaffolding # 1
+
+option go_package = "github.com/deaswang/nft/x/market/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/deaswang/nft/market/params";
+  }
+  // Queries a LootboxOption by index.
+	rpc LootboxOption(QueryGetLootboxOptionRequest) returns (QueryGetLootboxOptionResponse) {
+		option (google.api.http).get = "/deaswang/nft/market/lootbox_option/{name}";
+	}
+
+	// Queries a list of LootboxOption items.
+	rpc LootboxOptionAll(QueryAllLootboxOptionRequest) returns (QueryAllLootboxOptionResponse) {
+		option (google.api.http).get = "/deaswang/nft/market/lootbox_option";
+	}
+
+// Queries a Seed by index.
+	rpc Seed(QueryGetSeedRequest) returns (QueryGetSeedResponse) {
+		option (google.api.http).get = "/deaswang/nft/market/seed";
+	}
+// Queries a Order by index.
+	rpc Order(QueryGetOrderRequest) returns (QueryGetOrderResponse) {
+		option (google.api.http).get = "/deaswang/nft/market/order/{hash}/{maker}/{taker}";
+	}
+
+	// Queries a list of Order items.
+	rpc OrderAll(QueryAllOrderRequest) returns (QueryAllOrderResponse) {
+		option (google.api.http).get = "/deaswang/nft/market/order";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetLootboxOptionRequest {
+	  string name = 1;
+
+}
+
+message QueryGetLootboxOptionResponse {
+	LootboxOption lootboxOption = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllLootboxOptionRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllLootboxOptionResponse {
+	repeated LootboxOption lootboxOption = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetSeedRequest {}
+
+message QueryGetSeedResponse {
+	Seed Seed = 1 [(gogoproto.nullable) = false];
+}
+message QueryGetOrderRequest {
+	  string hash = 1;
+  string maker = 2;
+  string taker = 3;
+
+}
+
+message QueryGetOrderResponse {
+	Order order = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllOrderRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllOrderResponse {
+	repeated Order order = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

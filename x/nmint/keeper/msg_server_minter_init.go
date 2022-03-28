@@ -21,7 +21,7 @@ func (k msgServer) MinterInit(goCtx context.Context, msg *types.MsgMinterInit) (
 	if found {
 		return nil, status.Error(codes.AlreadyExists, "minter exist")
 	}
-	
+
 	minter := types.Minter{
 		Admin:        msg.Admin,
 		CollectionId: msg.CollectionId,

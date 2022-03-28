@@ -1,0 +1,26 @@
+syntax = "proto3";
+package deaswang.nft.market;
+
+option go_package = "github.com/deaswang/nft/x/market/types";
+
+message Order {
+  string hash = 1; 
+  string maker = 2; 
+  string taker = 3; 
+  uint64 makerRelayerFee = 4; 
+  uint64 takerRelayerFee = 5; 
+  uint64 makerProtocolFee = 6; 
+  uint64 takerProtocolFee = 7; 
+  string feeRecipient = 8; 
+  int32 feeMethod = 9; 
+  int32 side = 10; 
+  int32 saleKind = 11; 
+  string paymentToken = 12; 
+  uint64 basePrice = 13; 
+  uint64 extraPrice = 14; 
+  uint64 listingTime = 15; 
+  uint64 expirationTime = 16; 
+  uint64 salt = 17; 
+  string creator = 18;
+}
+

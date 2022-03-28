@@ -1,0 +1,103 @@
+syntax = "proto3";
+package deaswang.nft.market;
+
+import "market/lootbox_option.proto";
+import "market/order.proto";
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/deaswang/nft/x/market/types";
+
+// Msg defines the Msg service.
+service Msg {
+      rpc CreateLootboxOption(MsgCreateLootboxOption) returns (MsgCreateLootboxOptionResponse);
+  rpc UpdateLootboxOption(MsgUpdateLootboxOption) returns (MsgUpdateLootboxOptionResponse);
+  rpc DeleteLootboxOption(MsgDeleteLootboxOption) returns (MsgDeleteLootboxOptionResponse);
+  rpc CreateOrder(MsgCreateOrder) returns (MsgCreateOrderResponse);
+  rpc UpdateOrder(MsgUpdateOrder) returns (MsgUpdateOrderResponse);
+  rpc DeleteOrder(MsgDeleteOrder) returns (MsgDeleteOrderResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgCreateLootboxOption {
+  string creator = 1;
+  string name = 2;
+
+  uint64 maxQuantity = 3;
+  repeated int32 probability = 4;
+  bool guaranteed = 5;
+  repeated int32 guarantees = 6;
+}
+message MsgCreateLootboxOptionResponse {}
+
+message MsgUpdateLootboxOption {
+  string creator = 1;
+  string name = 2;
+
+  uint64 maxQuantity = 3;
+  repeated int32 probability = 4;
+  bool guaranteed = 5;
+  repeated int32 guarantees = 6;
+}
+message MsgUpdateLootboxOptionResponse {}
+
+message MsgDeleteLootboxOption {
+  string creator = 1;
+  string name = 2;
+}
+message MsgDeleteLootboxOptionResponse {}
+
+message MsgCreateOrder {
+  string creator = 1;
+  string hash = 2;
+  string maker = 3;
+  string taker = 4;
+
+  uint64 makerRelayerFee = 5;
+  uint64 takerRelayerFee = 6;
+  uint64 makerProtocolFee = 7;
+  uint64 takerProtocolFee = 8;
+  string feeRecipient = 9;
+  int32 feeMethod = 10;
+  int32 side = 11;
+  int32 saleKind = 12;
+  string paymentToken = 13;
+  uint64 basePrice = 14;
+  uint64 extraPrice = 15;
+  uint64 listingTime = 16;
+  uint64 expirationTime = 17;
+  uint64 salt = 18;
+}
+message MsgCreateOrderResponse {}
+
+message MsgUpdateOrder {
+  string creator = 1;
+  string hash = 2;
+  string maker = 3;
+  string taker = 4;
+
+  uint64 makerRelayerFee = 5;
+  uint64 takerRelayerFee = 6;
+  uint64 makerProtocolFee = 7;
+  uint64 takerProtocolFee = 8;
+  string feeRecipient = 9;
+  int32 feeMethod = 10;
+  int32 side = 11;
+  int32 saleKind = 12;
+  string paymentToken = 13;
+  uint64 basePrice = 14;
+  uint64 extraPrice = 15;
+  uint64 listingTime = 16;
+  uint64 expirationTime = 17;
+  uint64 salt = 18;
+}
+message MsgUpdateOrderResponse {}
+
+message MsgDeleteOrder {
+  string creator = 1;
+  string hash = 2;
+  string maker = 3;
+  string taker = 4;
+}
+message MsgDeleteOrderResponse {}
+
+// this line is used by starport scaffolding # proto/tx/message
