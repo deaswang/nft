@@ -32,8 +32,6 @@ func TestOrderQuerySingle(t *testing.T) {
 			desc: "First",
 			request: &types.QueryGetOrderRequest{
 				Hash:  msgs[0].Hash,
-				Maker: msgs[0].Maker,
-				Taker: msgs[0].Taker,
 			},
 			response: &types.QueryGetOrderResponse{Order: msgs[0]},
 		},
@@ -41,8 +39,6 @@ func TestOrderQuerySingle(t *testing.T) {
 			desc: "Second",
 			request: &types.QueryGetOrderRequest{
 				Hash:  msgs[1].Hash,
-				Maker: msgs[1].Maker,
-				Taker: msgs[1].Taker,
 			},
 			response: &types.QueryGetOrderResponse{Order: msgs[1]},
 		},
@@ -50,8 +46,6 @@ func TestOrderQuerySingle(t *testing.T) {
 			desc: "KeyNotFound",
 			request: &types.QueryGetOrderRequest{
 				Hash:  strconv.Itoa(100000),
-				Maker: strconv.Itoa(100000),
-				Taker: strconv.Itoa(100000),
 			},
 			err: status.Error(codes.InvalidArgument, "not found"),
 		},

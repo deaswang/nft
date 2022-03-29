@@ -181,28 +181,6 @@ func request_Query_Order_0(ctx context.Context, marshaler runtime.Marshaler, cli
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hash", err)
 	}
 
-	val, ok = pathParams["maker"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "maker")
-	}
-
-	protoReq.Maker, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "maker", err)
-	}
-
-	val, ok = pathParams["taker"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "taker")
-	}
-
-	protoReq.Taker, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "taker", err)
-	}
-
 	msg, err := client.Order(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -228,28 +206,6 @@ func local_request_Query_Order_0(ctx context.Context, marshaler runtime.Marshale
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hash", err)
-	}
-
-	val, ok = pathParams["maker"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "maker")
-	}
-
-	protoReq.Maker, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "maker", err)
-	}
-
-	val, ok = pathParams["taker"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "taker")
-	}
-
-	protoReq.Taker, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "taker", err)
 	}
 
 	msg, err := server.Order(ctx, &protoReq)
@@ -610,7 +566,7 @@ var (
 
 	pattern_Query_Seed_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"deaswang", "nft", "market", "seed"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Order_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"deaswang", "nft", "market", "order", "hash", "maker", "taker"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Order_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"deaswang", "nft", "market", "order", "hash"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_OrderAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"deaswang", "nft", "market", "order"}, "", runtime.AssumeColonVerbOpt(true)))
 )

@@ -8,14 +8,13 @@ import (
 const (
 	TypeMsgCreateOrder = "create_order"
 	TypeMsgUpdateOrder = "update_order"
-	TypeMsgDeleteOrder = "delete_order"
+	TypeMsgCancelOrder = "Cancel_order"
 )
 
 var _ sdk.Msg = &MsgCreateOrder{}
 
 func NewMsgCreateOrder(
 	creator string,
-	hash string,
 	maker string,
 	taker string,
 	makerRelayerFee uint64,
@@ -29,14 +28,13 @@ func NewMsgCreateOrder(
 	paymentToken string,
 	basePrice uint64,
 	extraPrice uint64,
-	listingTime uint64,
-	expirationTime uint64,
+	listingBlock uint64,
+	expirationBlock uint64,
 	salt uint64,
 
 ) *MsgCreateOrder {
 	return &MsgCreateOrder{
 		Creator:          creator,
-		Hash:             hash,
 		Maker:            maker,
 		Taker:            taker,
 		MakerRelayerFee:  makerRelayerFee,
@@ -50,8 +48,8 @@ func NewMsgCreateOrder(
 		PaymentToken:     paymentToken,
 		BasePrice:        basePrice,
 		ExtraPrice:       extraPrice,
-		ListingTime:      listingTime,
-		ExpirationTime:   expirationTime,
+		ListingBlock:     listingBlock,
+		ExpirationBlock:  expirationBlock,
 		Salt:             salt,
 	}
 }
@@ -103,8 +101,8 @@ func NewMsgUpdateOrder(
 	paymentToken string,
 	basePrice uint64,
 	extraPrice uint64,
-	listingTime uint64,
-	expirationTime uint64,
+	listingBlock uint64,
+	expirationBlock uint64,
 	salt uint64,
 
 ) *MsgUpdateOrder {
@@ -124,8 +122,8 @@ func NewMsgUpdateOrder(
 		PaymentToken:     paymentToken,
 		BasePrice:        basePrice,
 		ExtraPrice:       extraPrice,
-		ListingTime:      listingTime,
-		ExpirationTime:   expirationTime,
+		ListingBlock:     listingBlock,
+		ExpirationBlock:  expirationBlock,
 		Salt:             salt,
 	}
 }
@@ -159,31 +157,27 @@ func (msg *MsgUpdateOrder) ValidateBasic() error {
 	return nil
 }
 
-var _ sdk.Msg = &MsgDeleteOrder{}
+var _ sdk.Msg = &MsgCancelOrder{}
 
-func NewMsgDeleteOrder(
+func NewMsgCancelOrder(
 	creator string,
 	hash string,
-	maker string,
-	taker string,
 
-) *MsgDeleteOrder {
-	return &MsgDeleteOrder{
+) *MsgCancelOrder {
+	return &MsgCancelOrder{
 		Creator: creator,
 		Hash:    hash,
-		Maker:   maker,
-		Taker:   taker,
 	}
 }
-func (msg *MsgDeleteOrder) Route() string {
+func (msg *MsgCancelOrder) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgDeleteOrder) Type() string {
-	return TypeMsgDeleteOrder
+func (msg *MsgCancelOrder) Type() string {
+	return TypeMsgCancelOrder
 }
 
-func (msg *MsgDeleteOrder) GetSigners() []sdk.AccAddress {
+func (msg *MsgCancelOrder) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -191,12 +185,12 @@ func (msg *MsgDeleteOrder) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgDeleteOrder) GetSignBytes() []byte {
+func (msg *MsgCancelOrder) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgDeleteOrder) ValidateBasic() error {
+func (msg *MsgCancelOrder) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

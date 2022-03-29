@@ -70,21 +70,21 @@ func TestMsgUpdateOrder_ValidateBasic(t *testing.T) {
 	}
 }
 
-func TestMsgDeleteOrder_ValidateBasic(t *testing.T) {
+func TestMsgCancelOrder_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgDeleteOrder
+		msg  MsgCancelOrder
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgDeleteOrder{
+			msg: MsgCancelOrder{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgDeleteOrder{
+			msg: MsgCancelOrder{
 				Creator: sample.AccAddress(),
 			},
 		},

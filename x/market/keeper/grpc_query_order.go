@@ -48,8 +48,6 @@ func (k Keeper) Order(c context.Context, req *types.QueryGetOrderRequest) (*type
 	val, found := k.GetOrder(
 		ctx,
 		req.Hash,
-		req.Maker,
-		req.Taker,
 	)
 	if !found {
 		return nil, status.Error(codes.InvalidArgument, "not found")

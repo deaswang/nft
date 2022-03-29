@@ -66,28 +66,3 @@ func (k msgServer) UpdateLootboxOption(goCtx context.Context, msg *types.MsgUpda
 
 	return &types.MsgUpdateLootboxOptionResponse{}, nil
 }
-
-func (k msgServer) DeleteLootboxOption(goCtx context.Context, msg *types.MsgDeleteLootboxOption) (*types.MsgDeleteLootboxOptionResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
-
-	// Check if the value exists
-	valFound, isFound := k.GetLootboxOption(
-		ctx,
-		msg.Name,
-	)
-	if !isFound {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, "index not set")
-	}
-
-	// Checks if the the msg creator is the same as the current owner
-	if msg.Creator != valFound.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
-	}
-
-	k.RemoveLootboxOption(
-		ctx,
-		msg.Name,
-	)
-
-	return &types.MsgDeleteLootboxOptionResponse{}, nil
-}

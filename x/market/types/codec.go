@@ -10,10 +10,9 @@ import (
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateLootboxOption{}, "market/CreateLootboxOption", nil)
 	cdc.RegisterConcrete(&MsgUpdateLootboxOption{}, "market/UpdateLootboxOption", nil)
-	cdc.RegisterConcrete(&MsgDeleteLootboxOption{}, "market/DeleteLootboxOption", nil)
 	cdc.RegisterConcrete(&MsgCreateOrder{}, "market/CreateOrder", nil)
 	cdc.RegisterConcrete(&MsgUpdateOrder{}, "market/UpdateOrder", nil)
-	cdc.RegisterConcrete(&MsgDeleteOrder{}, "market/DeleteOrder", nil)
+	cdc.RegisterConcrete(&MsgCancelOrder{}, "market/DeleteOrder", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -21,12 +20,11 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateLootboxOption{},
 		&MsgUpdateLootboxOption{},
-		&MsgDeleteLootboxOption{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateOrder{},
 		&MsgUpdateOrder{},
-		&MsgDeleteOrder{},
+		&MsgCancelOrder{},
 	)
 	// this line is used by starport scaffolding # 3
 

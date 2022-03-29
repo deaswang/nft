@@ -11,10 +11,10 @@ option go_package = "github.com/deaswang/nft/x/market/types";
 service Msg {
       rpc CreateLootboxOption(MsgCreateLootboxOption) returns (MsgCreateLootboxOptionResponse);
   rpc UpdateLootboxOption(MsgUpdateLootboxOption) returns (MsgUpdateLootboxOptionResponse);
-  rpc DeleteLootboxOption(MsgDeleteLootboxOption) returns (MsgDeleteLootboxOptionResponse);
+  // rpc DeleteLootboxOption(MsgDeleteLootboxOption) returns (MsgDeleteLootboxOptionResponse);
   rpc CreateOrder(MsgCreateOrder) returns (MsgCreateOrderResponse);
-  rpc UpdateOrder(MsgUpdateOrder) returns (MsgUpdateOrderResponse);
-  rpc DeleteOrder(MsgDeleteOrder) returns (MsgDeleteOrderResponse);
+  // rpc UpdateOrder(MsgUpdateOrder) returns (MsgUpdateOrderResponse);
+  rpc CancelOrder(MsgCancelOrder) returns (MsgCancelOrderResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -40,41 +40,42 @@ message MsgUpdateLootboxOption {
 }
 message MsgUpdateLootboxOptionResponse {}
 
-message MsgDeleteLootboxOption {
-  string creator = 1;
-  string name = 2;
-}
-message MsgDeleteLootboxOptionResponse {}
+// message MsgDeleteLootboxOption {
+//   string creator = 1;
+//   string name = 2;
+// }
+// message MsgDeleteLootboxOptionResponse {}
 
 message MsgCreateOrder {
   string creator = 1;
-  string hash = 2;
-  string maker = 3;
-  string taker = 4;
-
-  uint64 makerRelayerFee = 5;
-  uint64 takerRelayerFee = 6;
-  uint64 makerProtocolFee = 7;
-  uint64 takerProtocolFee = 8;
-  string feeRecipient = 9;
-  int32 feeMethod = 10;
-  int32 side = 11;
-  int32 saleKind = 12;
-  string paymentToken = 13;
-  uint64 basePrice = 14;
-  uint64 extraPrice = 15;
-  uint64 listingTime = 16;
-  uint64 expirationTime = 17;
-  uint64 salt = 18;
+  
+  string maker = 2;
+  string taker = 3;
+  uint64 makerRelayerFee = 4;
+  uint64 takerRelayerFee = 5;
+  uint64 makerProtocolFee = 6;
+  uint64 takerProtocolFee = 7;
+  string feeRecipient = 8;
+  int32 feeMethod = 9;
+  int32 side = 10;
+  int32 saleKind = 11;
+  string paymentToken = 12;
+  uint64 basePrice = 13;
+  uint64 extraPrice = 14;
+  uint64 listingBlock = 15;
+  uint64 expirationBlock = 16;
+  uint64 salt = 17;
 }
-message MsgCreateOrderResponse {}
+message MsgCreateOrderResponse {
+  string hash = 1;
+}
 
 message MsgUpdateOrder {
   string creator = 1;
   string hash = 2;
+
   string maker = 3;
   string taker = 4;
-
   uint64 makerRelayerFee = 5;
   uint64 takerRelayerFee = 6;
   uint64 makerProtocolFee = 7;
@@ -86,18 +87,16 @@ message MsgUpdateOrder {
   string paymentToken = 13;
   uint64 basePrice = 14;
   uint64 extraPrice = 15;
-  uint64 listingTime = 16;
-  uint64 expirationTime = 17;
+  uint64 listingBlock = 16;
+  uint64 expirationBlock = 17;
   uint64 salt = 18;
 }
 message MsgUpdateOrderResponse {}
 
-message MsgDeleteOrder {
+message MsgCancelOrder {
   string creator = 1;
   string hash = 2;
-  string maker = 3;
-  string taker = 4;
 }
-message MsgDeleteOrderResponse {}
+message MsgCancelOrderResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

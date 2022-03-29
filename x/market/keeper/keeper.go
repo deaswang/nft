@@ -1,8 +1,10 @@
 package keeper
 
 import (
+	"encoding/binary"
 	"fmt"
 
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -48,4 +50,34 @@ func NewKeeper(
 
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
+}
+
+func (k Keeper) HashOrder(ctx sdk.Context, order types.Order) string {
+	orderBytes := []byte{}
+
+	orderBytes = append(orderBytes, []byte(order.Maker)...)
+	orderBytes = append(orderBytes, []byte(order.Taker)...)
+	orderBytes = append(orderBytes, intToBytes(order.MakerRelayerFee)...)
+	orderBytes = append(orderBytes, intToBytes(order.TakerRelayerFee)...)
+	orderBytes = append(orderBytes, intToBytes(order.MakerProtocolFee)...)
+	orderBytes = append(orderBytes, intToBytes(order.TakerProtocolFee)...)
+	orderBytes = append(orderBytes, []byte(order.FeeRecipient)...)
+	orderBytes = append(orderBytes, intToBytes(uint64(order.FeeMethod))...)
+	orderBytes = append(orderBytes, intToBytes(uint64(order.Side))...)
+	orderBytes = append(orderBytes, intToBytes(uint64(order.SaleKind))...)
+	orderBytes = append(orderBytes, []byte(order.PaymentToken)...)
+	orderBytes = append(orderBytes, intToBytes(order.BasePrice)...)
+	orderBytes = append(orderBytes, intToBytes(order.ExtraPrice)...)
+	orderBytes = append(orderBytes, intToBytes(order.ListingBlock)...)
+	orderBytes = append(orderBytes, intToBytes(order.ExpirationBlock)...)
+	orderBytes = append(orderBytes, intToBytes(order.Salt)...)
+
+	h := crypto.Keccak256Hash(orderBytes)
+	return h.String()
+}
+
+func intToBytes(i uint64) []byte {
+	b := make([]byte, 8)
+	binary.LittleEndian.PutUint64(b, i)
+	return b
 }

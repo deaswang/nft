@@ -18160,12 +18160,15 @@ paths:
                     feeMethod:
                       type: integer
                       format: int32
+                      title: 1 ProtocolFee 2 SplitFee
                     side:
                       type: integer
                       format: int32
+                      title: 1 buy 2 sell
                     saleKind:
                       type: integer
                       format: int32
+                      title: 1 FixedPrice 2 DutchAuction
                     paymentToken:
                       type: string
                     basePrice:
@@ -18174,15 +18177,19 @@ paths:
                     extraPrice:
                       type: string
                       format: uint64
-                    listingTime:
+                    listingBlock:
                       type: string
                       format: uint64
-                    expirationTime:
+                    expirationBlock:
                       type: string
                       format: uint64
                     salt:
                       type: string
                       format: uint64
+                    status:
+                      type: integer
+                      format: int32
+                      title: 0 process 1 approved 2 cancel 3 finalized
                     creator:
                       type: string
               pagination:
@@ -18289,7 +18296,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/deaswang/nft/market/order/{hash}/{maker}/{taker}':
+  '/deaswang/nft/market/order/{hash}':
     get:
       summary: Queries a Order by index.
       operationId: DeaswangNftMarketOrder
@@ -18325,12 +18332,15 @@ paths:
                   feeMethod:
                     type: integer
                     format: int32
+                    title: 1 ProtocolFee 2 SplitFee
                   side:
                     type: integer
                     format: int32
+                    title: 1 buy 2 sell
                   saleKind:
                     type: integer
                     format: int32
+                    title: 1 FixedPrice 2 DutchAuction
                   paymentToken:
                     type: string
                   basePrice:
@@ -18339,15 +18349,19 @@ paths:
                   extraPrice:
                     type: string
                     format: uint64
-                  listingTime:
+                  listingBlock:
                     type: string
                     format: uint64
-                  expirationTime:
+                  expirationBlock:
                     type: string
                     format: uint64
                   salt:
                     type: string
                     format: uint64
+                  status:
+                    type: integer
+                    format: int32
+                    title: 0 process 1 approved 2 cancel 3 finalized
                   creator:
                     type: string
         default:
@@ -18370,14 +18384,6 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: hash
-          in: path
-          required: true
-          type: string
-        - name: maker
-          in: path
-          required: true
-          type: string
-        - name: taker
           in: path
           required: true
           type: string
@@ -44330,17 +44336,16 @@ definitions:
           format: int32
       creator:
         type: string
+  deaswang.nft.market.MsgCancelOrderResponse:
+    type: object
   deaswang.nft.market.MsgCreateLootboxOptionResponse:
     type: object
   deaswang.nft.market.MsgCreateOrderResponse:
     type: object
-  deaswang.nft.market.MsgDeleteLootboxOptionResponse:
-    type: object
-  deaswang.nft.market.MsgDeleteOrderResponse:
-    type: object
+    properties:
+      hash:
+        type: string
   deaswang.nft.market.MsgUpdateLootboxOptionResponse:
-    type: object
-  deaswang.nft.market.MsgUpdateOrderResponse:
     type: object
   deaswang.nft.market.Order:
     type: object
@@ -44368,12 +44373,15 @@ definitions:
       feeMethod:
         type: integer
         format: int32
+        title: 1 ProtocolFee 2 SplitFee
       side:
         type: integer
         format: int32
+        title: 1 buy 2 sell
       saleKind:
         type: integer
         format: int32
+        title: 1 FixedPrice 2 DutchAuction
       paymentToken:
         type: string
       basePrice:
@@ -44382,15 +44390,19 @@ definitions:
       extraPrice:
         type: string
         format: uint64
-      listingTime:
+      listingBlock:
         type: string
         format: uint64
-      expirationTime:
+      expirationBlock:
         type: string
         format: uint64
       salt:
         type: string
         format: uint64
+      status:
+        type: integer
+        format: int32
+        title: 0 process 1 approved 2 cancel 3 finalized
       creator:
         type: string
   deaswang.nft.market.Params:
@@ -44479,12 +44491,15 @@ definitions:
             feeMethod:
               type: integer
               format: int32
+              title: 1 ProtocolFee 2 SplitFee
             side:
               type: integer
               format: int32
+              title: 1 buy 2 sell
             saleKind:
               type: integer
               format: int32
+              title: 1 FixedPrice 2 DutchAuction
             paymentToken:
               type: string
             basePrice:
@@ -44493,15 +44508,19 @@ definitions:
             extraPrice:
               type: string
               format: uint64
-            listingTime:
+            listingBlock:
               type: string
               format: uint64
-            expirationTime:
+            expirationBlock:
               type: string
               format: uint64
             salt:
               type: string
               format: uint64
+            status:
+              type: integer
+              format: int32
+              title: 0 process 1 approved 2 cancel 3 finalized
             creator:
               type: string
       pagination:
@@ -44583,12 +44602,15 @@ definitions:
           feeMethod:
             type: integer
             format: int32
+            title: 1 ProtocolFee 2 SplitFee
           side:
             type: integer
             format: int32
+            title: 1 buy 2 sell
           saleKind:
             type: integer
             format: int32
+            title: 1 FixedPrice 2 DutchAuction
           paymentToken:
             type: string
           basePrice:
@@ -44597,15 +44619,19 @@ definitions:
           extraPrice:
             type: string
             format: uint64
-          listingTime:
+          listingBlock:
             type: string
             format: uint64
-          expirationTime:
+          expirationBlock:
             type: string
             format: uint64
           salt:
             type: string
             format: uint64
+          status:
+            type: integer
+            format: int32
+            title: 0 process 1 approved 2 cancel 3 finalized
           creator:
             type: string
   deaswang.nft.market.QueryGetSeedResponse:

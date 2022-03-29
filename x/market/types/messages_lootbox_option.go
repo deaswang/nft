@@ -111,43 +111,43 @@ func (msg *MsgUpdateLootboxOption) ValidateBasic() error {
 	return nil
 }
 
-var _ sdk.Msg = &MsgDeleteLootboxOption{}
+// var _ sdk.Msg = &MsgDeleteLootboxOption{}
 
-func NewMsgDeleteLootboxOption(
-	creator string,
-	name string,
+// func NewMsgDeleteLootboxOption(
+// 	creator string,
+// 	name string,
 
-) *MsgDeleteLootboxOption {
-	return &MsgDeleteLootboxOption{
-		Creator: creator,
-		Name:    name,
-	}
-}
-func (msg *MsgDeleteLootboxOption) Route() string {
-	return RouterKey
-}
+// ) *MsgDeleteLootboxOption {
+// 	return &MsgDeleteLootboxOption{
+// 		Creator: creator,
+// 		Name:    name,
+// 	}
+// }
+// func (msg *MsgDeleteLootboxOption) Route() string {
+// 	return RouterKey
+// }
 
-func (msg *MsgDeleteLootboxOption) Type() string {
-	return TypeMsgDeleteLootboxOption
-}
+// func (msg *MsgDeleteLootboxOption) Type() string {
+// 	return TypeMsgDeleteLootboxOption
+// }
 
-func (msg *MsgDeleteLootboxOption) GetSigners() []sdk.AccAddress {
-	creator, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		panic(err)
-	}
-	return []sdk.AccAddress{creator}
-}
+// func (msg *MsgDeleteLootboxOption) GetSigners() []sdk.AccAddress {
+// 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	return []sdk.AccAddress{creator}
+// }
 
-func (msg *MsgDeleteLootboxOption) GetSignBytes() []byte {
-	bz := ModuleCdc.MustMarshalJSON(msg)
-	return sdk.MustSortJSON(bz)
-}
+// func (msg *MsgDeleteLootboxOption) GetSignBytes() []byte {
+// 	bz := ModuleCdc.MustMarshalJSON(msg)
+// 	return sdk.MustSortJSON(bz)
+// }
 
-func (msg *MsgDeleteLootboxOption) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
-	}
-	return nil
-}
+// func (msg *MsgDeleteLootboxOption) ValidateBasic() error {
+// 	_, err := sdk.AccAddressFromBech32(msg.Creator)
+// 	if err != nil {
+// 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+// 	}
+// 	return nil
+// }

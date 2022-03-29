@@ -34,7 +34,7 @@ service Query {
 	}
 // Queries a Order by index.
 	rpc Order(QueryGetOrderRequest) returns (QueryGetOrderResponse) {
-		option (google.api.http).get = "/deaswang/nft/market/order/{hash}/{maker}/{taker}";
+		option (google.api.http).get = "/deaswang/nft/market/order/{hash}";
 	}
 
 	// Queries a list of Order items.
@@ -79,8 +79,6 @@ message QueryGetSeedResponse {
 }
 message QueryGetOrderRequest {
 	  string hash = 1;
-  string maker = 2;
-  string taker = 3;
 
 }
 

@@ -32,10 +32,9 @@ func GetTxCmd() *cobra.Command {
 
 	cmd.AddCommand(CmdCreateLootboxOption())
 	cmd.AddCommand(CmdUpdateLootboxOption())
-	cmd.AddCommand(CmdDeleteLootboxOption())
 	cmd.AddCommand(CmdCreateOrder())
-	cmd.AddCommand(CmdUpdateOrder())
-	cmd.AddCommand(CmdDeleteOrder())
+	// cmd.AddCommand(CmdUpdateOrder())
+	cmd.AddCommand(CmdCancelOrder())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

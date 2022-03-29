@@ -44,7 +44,7 @@ func CmdListOrder() *cobra.Command {
 
 func CmdShowOrder() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-order [hash] [maker] [taker]",
+		Use:   "show-order [hash]",
 		Short: "shows a order",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -53,13 +53,9 @@ func CmdShowOrder() *cobra.Command {
 			queryClient := types.NewQueryClient(clientCtx)
 
 			argHash := args[0]
-			argMaker := args[1]
-			argTaker := args[2]
 
 			params := &types.QueryGetOrderRequest{
-				Hash:  argHash,
-				Maker: argMaker,
-				Taker: argTaker,
+				Hash: argHash,
 			}
 
 			res, err := queryClient.Order(context.Background(), params)
