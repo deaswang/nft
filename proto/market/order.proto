@@ -2,6 +2,8 @@ syntax = "proto3";
 package deaswang.nft.market;
 
 option go_package = "github.com/deaswang/nft/x/market/types";
+import "gogoproto/gogo.proto"; 
+import "cosmos/base/v1beta1/coin.proto"; 
 
 message Order {
   string hash = 1; 
@@ -15,17 +17,18 @@ message Order {
   // 1 ProtocolFee 2 SplitFee
   int32 feeMethod = 9; 
   // 1 buy 2 sell
-  int32 side = 10;
+  int32 side = 10; 
   // 1 FixedPrice 2 DutchAuction 
   int32 saleKind = 11; 
-  string paymentToken = 12; 
-  uint64 basePrice = 13; 
-  uint64 extraPrice = 14; 
-  uint64 listingBlock = 15; 
-  uint64 expirationBlock = 16; 
-  uint64 salt = 17; 
+  string collectionId = 12; 
+  string tokenId = 13; 
+  cosmos.base.v1beta1.Coin basePrice = 14 [(gogoproto.nullable) = false]; 
+  cosmos.base.v1beta1.Coin extraPrice = 15 [(gogoproto.nullable) = false]; 
+  uint64 listingBlock = 16; 
+  uint64 expirationBlock = 17; 
+  uint64 salt = 18; 
   // 0 process 1 approved 2 cancel 3 finalized
-  int32 status = 18;
-  string creator = 19;
+  int32 status = 19;
+  string creator = 20;
 }
 

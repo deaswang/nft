@@ -6,6 +6,8 @@ import "market/order.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/deaswang/nft/x/market/types";
+import "gogoproto/gogo.proto"; 
+import "cosmos/base/v1beta1/coin.proto"; 
 
 // Msg defines the Msg service.
 service Msg {
@@ -15,6 +17,7 @@ service Msg {
   rpc CreateOrder(MsgCreateOrder) returns (MsgCreateOrderResponse);
   // rpc UpdateOrder(MsgUpdateOrder) returns (MsgUpdateOrderResponse);
   rpc CancelOrder(MsgCancelOrder) returns (MsgCancelOrderResponse);
+  rpc Match(MsgMatch) returns (MsgMatchResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -59,12 +62,13 @@ message MsgCreateOrder {
   int32 feeMethod = 9;
   int32 side = 10;
   int32 saleKind = 11;
-  string paymentToken = 12;
-  uint64 basePrice = 13;
-  uint64 extraPrice = 14;
-  uint64 listingBlock = 15;
-  uint64 expirationBlock = 16;
-  uint64 salt = 17;
+  string collectionId = 12; 
+  string tokenId = 13; 
+  cosmos.base.v1beta1.Coin basePrice = 14 [(gogoproto.nullable) = false]; 
+  cosmos.base.v1beta1.Coin extraPrice = 15 [(gogoproto.nullable) = false]; 
+  uint64 listingBlock = 16;
+  uint64 expirationBlock = 17;
+  uint64 salt = 18;
 }
 message MsgCreateOrderResponse {
   string hash = 1;
@@ -84,12 +88,13 @@ message MsgUpdateOrder {
   int32 feeMethod = 10;
   int32 side = 11;
   int32 saleKind = 12;
-  string paymentToken = 13;
-  uint64 basePrice = 14;
-  uint64 extraPrice = 15;
-  uint64 listingBlock = 16;
-  uint64 expirationBlock = 17;
-  uint64 salt = 18;
+  string collectionId = 13; 
+  string tokenId = 14; 
+  cosmos.base.v1beta1.Coin basePrice = 15 [(gogoproto.nullable) = false]; 
+  cosmos.base.v1beta1.Coin extraPrice = 16 [(gogoproto.nullable) = false]; 
+  uint64 listingBlock = 17;
+  uint64 expirationBlock = 18;
+  uint64 salt = 19;
 }
 message MsgUpdateOrderResponse {}
 
@@ -98,5 +103,14 @@ message MsgCancelOrder {
   string hash = 2;
 }
 message MsgCancelOrderResponse {}
+
+message MsgMatch {
+  string creator = 1;
+  string buy = 2;
+  string sell = 3;
+}
+
+message MsgMatchResponse {
+}
 
 // this line is used by starport scaffolding # proto/tx/message

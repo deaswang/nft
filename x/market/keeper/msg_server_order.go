@@ -11,6 +11,10 @@ import (
 func (k msgServer) CreateOrder(goCtx context.Context, msg *types.MsgCreateOrder) (*types.MsgCreateOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	if msg.Creator != msg.Maker {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "creater not maker")
+	}
+
 	var order = types.Order{
 		Creator:          msg.Creator,
 		Maker:            msg.Maker,
@@ -23,12 +27,12 @@ func (k msgServer) CreateOrder(goCtx context.Context, msg *types.MsgCreateOrder)
 		FeeMethod:        msg.FeeMethod,
 		Side:             msg.Side,
 		SaleKind:         msg.SaleKind,
-		PaymentToken:     msg.PaymentToken,
 		BasePrice:        msg.BasePrice,
 		ExtraPrice:       msg.ExtraPrice,
 		ListingBlock:     msg.ListingBlock,
 		ExpirationBlock:  msg.ExpirationBlock,
 		Salt:             msg.Salt,
+		Status:           0,
 	}
 
 	order.Hash = k.HashOrder(ctx, order)

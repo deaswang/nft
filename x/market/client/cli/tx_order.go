@@ -4,6 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/deaswang/nft/x/market/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
@@ -11,7 +12,7 @@ import (
 
 func CmdCreateOrder() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-order [maker] [taker] [maker-relayer-fee] [taker-relayer-fee] [maker-protocol-fee] [taker-protocol-fee] [fee-recipient] [fee-method] [side] [sale-kind] [payment-token] [base-price] [extra-price] [listing-time] [expiration-time] [salt]",
+		Use:   "create-order [maker] [taker] [maker-relayer-fee] [taker-relayer-fee] [maker-protocol-fee] [taker-protocol-fee] [fee-recipient] [fee-method] [side] [sale-kind] [collection-id] [token-id] [base-price] [extra-price] [listing-time] [expiration-time] [salt]",
 		Short: "Create a new order",
 		Args:  cobra.ExactArgs(17),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -49,24 +50,26 @@ func CmdCreateOrder() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argPaymentToken := args[10]
-			argBasePrice, err := cast.ToUint64E(args[11])
+			argCollectionId := args[10]
+			argTokenId := args[11]
+
+			argBasePrice, err := sdk.ParseCoinNormalized(args[12])
 			if err != nil {
 				return err
 			}
-			argExtraPrice, err := cast.ToUint64E(args[12])
+			argExtraPrice, err := sdk.ParseCoinNormalized(args[13])
 			if err != nil {
 				return err
 			}
-			argListingTime, err := cast.ToUint64E(args[13])
+			argListingTime, err := cast.ToUint64E(args[14])
 			if err != nil {
 				return err
 			}
-			argExpirationTime, err := cast.ToUint64E(args[14])
+			argExpirationTime, err := cast.ToUint64E(args[15])
 			if err != nil {
 				return err
 			}
-			argSalt, err := cast.ToUint64E(args[15])
+			argSalt, err := cast.ToUint64E(args[16])
 			if err != nil {
 				return err
 			}
@@ -88,7 +91,8 @@ func CmdCreateOrder() *cobra.Command {
 				argFeeMethod,
 				argSide,
 				argSaleKind,
-				argPaymentToken,
+				argCollectionId,
+				argTokenId,
 				argBasePrice,
 				argExtraPrice,
 				argListingTime,

@@ -18169,14 +18169,40 @@ paths:
                       type: integer
                       format: int32
                       title: 1 FixedPrice 2 DutchAuction
-                    paymentToken:
+                    collectionId:
+                      type: string
+                    tokenId:
                       type: string
                     basePrice:
-                      type: string
-                      format: uint64
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
                     extraPrice:
-                      type: string
-                      format: uint64
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
                     listingBlock:
                       type: string
                       format: uint64
@@ -18341,14 +18367,40 @@ paths:
                     type: integer
                     format: int32
                     title: 1 FixedPrice 2 DutchAuction
-                  paymentToken:
+                  collectionId:
+                    type: string
+                  tokenId:
                     type: string
                   basePrice:
-                    type: string
-                    format: uint64
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
                   extraPrice:
-                    type: string
-                    format: uint64
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
                   listingBlock:
                     type: string
                     format: uint64
@@ -44345,6 +44397,8 @@ definitions:
     properties:
       hash:
         type: string
+  deaswang.nft.market.MsgMatchResponse:
+    type: object
   deaswang.nft.market.MsgUpdateLootboxOptionResponse:
     type: object
   deaswang.nft.market.Order:
@@ -44382,14 +44436,34 @@ definitions:
         type: integer
         format: int32
         title: 1 FixedPrice 2 DutchAuction
-      paymentToken:
+      collectionId:
+        type: string
+      tokenId:
         type: string
       basePrice:
-        type: string
-        format: uint64
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
       extraPrice:
-        type: string
-        format: uint64
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
       listingBlock:
         type: string
         format: uint64
@@ -44500,14 +44574,40 @@ definitions:
               type: integer
               format: int32
               title: 1 FixedPrice 2 DutchAuction
-            paymentToken:
+            collectionId:
+              type: string
+            tokenId:
               type: string
             basePrice:
-              type: string
-              format: uint64
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
             extraPrice:
-              type: string
-              format: uint64
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
             listingBlock:
               type: string
               format: uint64
@@ -44611,14 +44711,40 @@ definitions:
             type: integer
             format: int32
             title: 1 FixedPrice 2 DutchAuction
-          paymentToken:
+          collectionId:
+            type: string
+          tokenId:
             type: string
           basePrice:
-            type: string
-            format: uint64
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
           extraPrice:
-            type: string
-            format: uint64
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
           listingBlock:
             type: string
             format: uint64

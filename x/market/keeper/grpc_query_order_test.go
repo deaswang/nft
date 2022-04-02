@@ -31,21 +31,21 @@ func TestOrderQuerySingle(t *testing.T) {
 		{
 			desc: "First",
 			request: &types.QueryGetOrderRequest{
-				Hash:  msgs[0].Hash,
+				Hash: msgs[0].Hash,
 			},
 			response: &types.QueryGetOrderResponse{Order: msgs[0]},
 		},
 		{
 			desc: "Second",
 			request: &types.QueryGetOrderRequest{
-				Hash:  msgs[1].Hash,
+				Hash: msgs[1].Hash,
 			},
 			response: &types.QueryGetOrderResponse{Order: msgs[1]},
 		},
 		{
 			desc: "KeyNotFound",
 			request: &types.QueryGetOrderRequest{
-				Hash:  strconv.Itoa(100000),
+				Hash: strconv.Itoa(100000),
 			},
 			err: status.Error(codes.InvalidArgument, "not found"),
 		},
